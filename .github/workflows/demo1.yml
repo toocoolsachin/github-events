@@ -53,4 +53,4 @@ jobs:
       - name: Output filename
         run: echo "${{ steps.publish.outputs.script-file }}"
       - name: Deploy project
-        run: echo "Deploying..."
+        uses: ./.github/workflows/reusable.yml
