@@ -16,7 +16,7 @@ on:
     # paths-ignore:
     #   - '.github/workflows/*'
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     outputs:
       script-file: ${{ steps.publish.outputs.script-file }}
@@ -52,5 +52,7 @@ jobs:
         run: ls
       - name: Output filename
         run: echo "${{ steps.publish.outputs.script-file }}"
-      - name: Deploy project
-        uses: ./.github/workflows/reusable.yml
+
+  deploy:
+    needs: build
+    uses: ./.github/workflows/reusable.yml
