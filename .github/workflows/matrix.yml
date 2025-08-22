@@ -1,5 +1,5 @@
 name: Matrix demo
-on: push
+on: ...
 jobs:
   build:
     continue-on-error: true
