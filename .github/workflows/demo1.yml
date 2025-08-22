@@ -66,10 +66,21 @@ jobs:
     steps:
       - name: Print deploy output
         run: echo "${{ needs.deploy.outputs.result }}"
-  information:
+  deploy-site:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Run custom js action
+      - name: Deploy site
+        id: deploy
         uses: ./.github/actions/deploy-s3-javascript
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secerts.AWS_SECRET_ACCESS_KEY }}
+        with:
+          bucket: <bucket_name>
+          dist-folder: ./dist
+          # bucket-region: us-east-2
+      - name: Output information
+        run: |
+          echo "Live URL: ${{ steps.deploy.outputs.website-url }}"
